@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_splash_bg"
+    style="@style/AppTheme.MaterialTheme"
+    tools:context=".GenerateQrActivity">
+
+    <FrameLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/QRShower"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:elevation="1dp"
+            android:padding="4dp"
+            android:text="@string/QR_shower_text"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:id="@+id/QR_shower_text"
+            android:layout_marginTop="100dp"
+            />
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@color/teal_700"
+            android:id="@+id/QR_shower"/>
+
+    </FrameLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@id/QRShower"
+        android:layout_marginTop="50dp"
+        android:background="@color/teal_700"
+        android:hint="@string/textInputHint"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        android:padding="5dp"
+        android:id="@+id/EditText"
+
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EditText"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_background"
+        android:text="@string/generate_QR"
+        android:textColor="#682FCD"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:id="@+id/GenerateQR2"/>
+
+
+
+
+
+</RelativeLayout>

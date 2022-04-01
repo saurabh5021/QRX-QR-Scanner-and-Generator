@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">QRX</string>
+    <string name="app_heading">Welcome to QRX: A QR Code Scanner and Generator</string>
+    <string name="generate_QR">Generate QR</string>
+    <string name="scan_QR">Scan QR</string>
+    <string name="QR_shower_text">Your QR Will Appear Here</string>
+    <string name="textInputHint">Enter Your Website, Text to Embed in QR</string>
+    <string name="no_qr_detected">No QR Code Detected</string>
+    <string name="share">Share</string>
+
+
+</resources>
