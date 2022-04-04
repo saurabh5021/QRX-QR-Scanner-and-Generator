@@ -1,10 +1,12 @@
 package com.example.qrx;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.Display;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -24,6 +27,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.io.File;
+import java.io.FileOutputStream;
 
 
 public class GenerateQrActivity extends AppCompatActivity {
@@ -32,6 +37,7 @@ public class GenerateQrActivity extends AppCompatActivity {
     private ImageView qrShowerI;
     private EditText editText;
     private Button generateQR2;
+    private Button share;
 
 
 
@@ -44,6 +50,7 @@ public class GenerateQrActivity extends AppCompatActivity {
         qrShowerI = findViewById(R.id.QR_shower);
         editText = findViewById(R.id.EditText);
         generateQR2 = findViewById(R.id.GenerateQR2);
+        share = findViewById(R.id.share);
 
 
         generateQR2.setOnClickListener(new View.OnClickListener() {
@@ -79,5 +86,47 @@ public class GenerateQrActivity extends AppCompatActivity {
             }
         });
 
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(qrShowerI.getDrawable() == null){
+                    Toast.makeText(GenerateQrActivity.this, "Please Create QR First", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    BitmapDrawable bitmapDrawable = (BitmapDrawable) qrShowerI.getDrawable();
+                    Bitmap bitmap = bitmapDrawable.getBitmap();
+                    shareImageandText(bitmap);
+                }
+            }
+        });
+
+    }
+
+    private void shareImageandText(Bitmap bitmap) {
+        Uri uri = getmageToShare(bitmap);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.putExtra(Intent.EXTRA_TEXT, editText.getText().toString() + "QR Code");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+        intent.setType("image/png");
+        startActivity(Intent.createChooser(intent, "Share Via"));
+    }
+
+    private Uri getmageToShare(Bitmap bitmap) {
+        File imagefolder = new File(getCacheDir(), "images");
+        Uri uri = null;
+        try {
+            imagefolder.mkdirs();
+            File file = new File(imagefolder, "shared_image.png");
+            FileOutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            uri = FileProvider.getUriForFile(this, "com.anni.shareimage.fileprovider", file);
+        } catch (Exception e) {
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return uri;
     }
 }
